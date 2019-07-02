@@ -6,23 +6,21 @@ print('This is a test to see how many guesses it takes to find a random number b
 print(f'Random number generated: {item_to_find}')
 
 
-def iterative_binary_search(data, value):
-    low = 0
-    high = len(data) - 1
-    guessCounter = 0
-
-    while low <= high:
+def recursive_binary_search(data, value, low, high, guessCounter=0):
+    if low > high:
+        print('Item is not in the list')
+    else:
         mid = (low + high) // 2
         if value == data[mid]:
             guessCounter += 1
-            print(f'Match found in {guessCounter} guess using iterative binary search')
+            print(f'Match found in {guessCounter} guess using recursive binary search')
             return True
         elif value < data[mid]:
-            high = mid - 1
             guessCounter += 1
+            return recursive_binary_search(data, value, low, mid - 1, guessCounter)
         else:
-            low = mid + 1
             guessCounter += 1
+            return recursive_binary_search(data, value, mid + 1, high, guessCounter)
     return False
 
 
@@ -35,4 +33,4 @@ def linear_search(data, value):
 
 
 linear_search(list_to_search, item_to_find)
-iterative_binary_search(list_to_search, item_to_find)
+recursive_binary_search(list_to_search, item_to_find, 0, len(list_to_search) - 1)
