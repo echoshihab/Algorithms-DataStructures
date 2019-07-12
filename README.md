@@ -4,6 +4,9 @@ Exploring Algorithms through example
 Find a randomly selected number in a list using iterative and recursive binary search and compare to linear search
 
 # Selection sort
-    A. Use selection sort to modify the original list
-    B. Use selection sort to return a new sorted list
+1) Use selection sort to modify the original list
+2) Use selection sort to return a new sorted list
 
+# Quick Sort
+1) Use pivot of first index
+2) use pivot of median of three
