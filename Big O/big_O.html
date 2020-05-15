@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Open up console to see result</h2>
+    <div>
+      <em>These are examples of O(n) -> Linear Time</em>
+    </div>
+    <script>
+      const nemo = ["Kohn", "Test", "nemo", "magic"];
+
+      //find nemo in small array O(4)
+      function findNemo(array) {
+        let t0 = performance.now();
+        for (let i = 0; i < array.length; i++) {
+          if (array[i] === "nemo") {
+            console.log("Found Nemo!");
+          }
+        }
+        let t1 = performance.now();
+        console.log(`It took ${t1 - t0} miliseconds to find nemo`);
+      }
+
+      findNemo(nemo);
+
+      //find nemo in larger array - O(100)
+
+      const large = new Array(100).fill("nemo");
+
+      findNemo(large);
+
+      //even larger O(1000)
+      const larger = new Array(1000).fill("nemo");
+      findNemo(larger);
+    </script>
+  </body>
+</html>
