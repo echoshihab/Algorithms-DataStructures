@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      code {
+        font-size: 14px;
+      }
+      span {
+        font-weight: bold;
+        color: green
+      }
+    </style>
+  </head>
+  <body>
+    <div><em>This is an example of O(n)-> constant time</em> <br /><br /></div>
+
+    <code>
+      // 1. What is the Big O of the below function? <br /><br />
+      function funChallenge(input) { <br />
+      &nbsp;&nbsp; let a = 10; <span">//(O(1))</span>
+      <br />
+      &nbsp;&nbsp;a = 50 + 3; <span>//(O(1))</span> <br />
+
+      &nbsp;&nbsp;for (let i = 0; i < input.length; i++) {
+      <span >//(O(n))</span> <br />
+      &nbsp;&nbsp;anotherFunction(); <span >//(O(n))</span
+      ><br />
+      &nbsp;&nbsp;let stranger = true;
+      <span >//(O(n))</span> <br />
+      &nbsp;&nbsp;a++; <span >//(O(n))</span> <br />
+
+      } return a; <span >//(O(1))</span> <br />
+      }
+    </code>
+    <br />
+    <br />
+
+    // What is the Big O of the below function? <br><br>
+    <code>
+      function anotherFunChallenge(input) { <br />
+          &nbsp;&nbsp;let a = 5; <span >//(O(1))</span> <br />
+          &nbsp;&nbsp; let b = 10;<span >//(O(1))</span><br />
+         &nbsp;&nbsp;let c = 50; <span >//(O(1))</span> <br />
+         &nbsp;&nbsp;for (let i = 0; i <br input; i++) { <br />
+        &nbsp;&nbsp;let x = i + 1; <span >//(O(n))</span><br /> 
+        &nbsp;&nbsp;let y = i + 2; <span >//(O(n))</span><br /> 
+       &nbsp;&nbsp; let z = i + 3;<span >//(O(n))</span><br /> 
+
+      }</br>
+
+      for (let j = 0; j < input; j++) { 
+        &nbsp;&nbsp; let p = j * 2; <span >//(O(n))</span><br />
+       &nbsp;&nbsp;let q = j * 2;<span >//(O(n))</span><br /> 
+      } </br>
+      &nbsp;&nbsp;let whoAmI = "I don't know"; <span >//(O(1))</span> <br />
+      }
+    </code>
+
+    <br /><br />
+
+    1. Answer = O notation = 3 + 4n or simplfied to O(n) <br />
+    2. Answer = O notation = 4 + 5n or simplified to O(n)
+  </body>
+</html>
