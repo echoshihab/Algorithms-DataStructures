@@ -44,3 +44,12 @@ function compare_arrays2(arr1, arr2) {
   }
   return false;
 }
+
+//alternate js solution
+
+function compare_arrays3(arr1, arr2) {
+  return arr1.some((value) => arr2.includes(value));
+}
+
+console.log(compare_arrays3(array3, array4));
+console.log(compare_arrays3(array1, array2));
