@@ -40,24 +40,54 @@ class LinkedList {
   }
 
   insert(index, value) {
-    let newNode;
     if (index === 0) {
-      this.head.prepend(value);
+      this.prepend(value);
+      return this.printList();
     }
-    if (index === this.length) {
-      this.head.append(value);
+    //check params
+    if (index >= this.length) {
+      return this.append(value);
     }
-    if (index !== 0 || index !== this.length) {
-      let currentNode = this.head;
-      for (let i = 0; i <= index; i++) {
-        if (i === index) {
-          currentNode.value = value;
-          break;
-        }
-        currentNode = currentNode.next;
-      }
-    }
+    const newNode = new Node(value);
+    const leader = this.traverseToIndex(index - 1);
+    console.log(leader);
+    const holdingPointer = leader.next; //{ value: 10, next: null } } }
+    leader.next = newNode; //{value: 3, next: null}
+    newNode.next = holdingPointer; //{value: 3 next { value 10, next:null}}
     this.length++;
+    return this.printList();
+  }
+  traverseToIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
+  }
+
+  remove(index) {
+    let leader;
+    if (index === 0) {
+      this.head = this.head.next;
+      this.length--;
+      return this.printList();
+    }
+    if (index === this.length - 1) {
+      leader = this.traverseToIndex(index - 1);
+      leader.next = null;
+      this.length--;
+      return this.printList();
+    }
+
+    leader = this.traverseToIndex(index - 1);
+    let follower = this.traverseToIndex(index + 1);
+    //alternative method
+    //const unwantedNode = leader.next;
+    //leader.next = unwantedNode.next;
+    leader.next = follower;
+    return this.printList();
   }
 }
 
@@ -65,5 +95,5 @@ const myLinkedList = new LinkedList(10);
 
 myLinkedList.prepend(4);
 myLinkedList.prepend(5);
-myLinkedList.insert(1, 3);
-myLinkedList.printList();
+myLinkedList.insert(2, 3);
+myLinkedList.remove(0);
