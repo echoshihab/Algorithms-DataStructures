@@ -1,0 +1,16 @@
+data structure and algorithms
+Basic data structures: stacks, queues, hash tables, and binary trees; searching and sorting; graph representations and algorithms, including minimum spanning trees, 
+traversals, shortest paths; introduction to algorithmic design strategies; correctness and performance analysis.
+
+
+introduction to software deevelopment
+Software life cycle, quality attributes, requirements documentation, 
+specifying behavior; classes and objects, interface specification; 
+creational, structural, and behavioral software design patterns; implementation in code, reviews, testing and verification.
+
+
+principles of programming
+-Fundamental concepts of programming: expressions, statements, procedures, control structures, iteration, recursion, exceptions; precise memory model of traditional imperative programming languages; basic data structures: records, arrays, dynamic structures; use of libraries.
+
+databases
+computer architechture - Introduction to logic gates, number representation, computer arithmetic, instruction-set architecture, datapath and control, pipelining, memory hierarchies, I/O systems, multiprocessor systems, measures of performance.
