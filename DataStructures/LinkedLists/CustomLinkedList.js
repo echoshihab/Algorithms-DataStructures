@@ -67,20 +67,61 @@ class LinkedList {
     return currentNode;
   }
 
+  // reverse() {
+  //   if (!this.head.next) {
+  //     return this.head;
+  //   }
+  //   let first = this.head;
+  //   this.tail = this.head;
+  //   let second = first.next;
+  //   while (second) {
+  //     const temp = second.next;
+  //     first = second;
+  //     second = temp;
+  //   }
+  //   this.head.next = null;
+  //   this.head = first;
+  // }
+
+  //alternative:
+  // reverse() {
+  //   if(!this.head.next){
+  //     return this.head;
+  //   }
+  //   let currentNode = this.head;
+  //   let mainPointer = this.head;
+  //   this.length = 1;
+  //   while (currentNode !== null) {
+  //     currentNode = currentNode.next;
+  //     if (currentNode !== null) this.prepend(currentNode.value);
+  //   }
+  //   this.tail = mainPointer;
+  //   this.tail.next = null;
+  //   return this;
+
+  //[7,5,1,10]
+  //[5,7,1,10]
+  //[1,5,7],[10]
+  //10,1,5,7
+
   reverse() {
-    if (!this.head.next) {
-      return this.head;
-    }
     let first = this.head;
-    this.tail = this.head;
+    let tail = this.head;
     let second = first.next;
     while (second) {
-      const temp = second.next;
-      first = second;
-      second = temp;
+      let temp = second.next; //10
+      second.next = first; //1=>5=>7
+      first = second; //1=>5=7
+      second = temp; //10
     }
-    this.head.next = null;
-    this.head = first;
+
+    //so the progression is
+    //first iteration = first = [5=>7], second =[1,10]
+    //second iteration  first = [1=>5=>7] second=[10]
+    //last iteration = first = [10] second=[1=>5=>7]
+
+    this.head.next = null; //since this head is still at 7 at this point, make the next null
+    this.head = first; // and now point the head to first
   }
 
   remove(index) {
@@ -109,7 +150,8 @@ class LinkedList {
 
 const myLinkedList = new LinkedList(10);
 
-myLinkedList.prepend(4);
+myLinkedList.prepend(1);
 myLinkedList.prepend(5);
-myLinkedList.insert(2, 3);
-myLinkedList.remove(0);
+myLinkedList.prepend(7);
+myLinkedList.reverse();
+myLinkedList.printList();
