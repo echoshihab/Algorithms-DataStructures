@@ -2,12 +2,11 @@
 //other should just use a for loop
 
 function findFactorialRecursive(number) {
-  let nextNum = number - 1;
-  let answer = number;
-  if (nextNum == 1) {
-    return answer;
+  debugger;
+  if (number === 2) {
+    return 2;
   }
-  return findFactorialRecursive(nextNum) * answer;
+  return number * findFactorialRecursive(number - 1);
 }
 
 function findFactorialAlternative(number) {
