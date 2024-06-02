@@ -60,7 +60,7 @@ print(groupAnagrams(["hhhhu","hhhuh"]))
 print(groupAnagrams(["","",  ""]))
 
 
-#o(n * m log m)
+#O(n * m log m)
 
 def groupAnagrams2(strs: List[str]) -> List[List[str]]:
     anagram_groups = defaultdict(list)
@@ -78,9 +78,21 @@ print(groupAnagrams2(["hhhhu","hhhuh"]))
 print(groupAnagrams2(["","",  ""]))
 
 
-    
+#O(n*m)
+def groupAnagrams3(strs: List[str]) -> List[List[str]]:
+    anagram_groups = defaultdict(list)
 
+    for string in strs:
+        letter_count = [0] * 26
+        for c in string:
+            letter_count[ord(c) - ord('a')] += 1
+        anagram_groups[tuple(letter_count)].append(string)
+    
+    return anagram_groups.values()
+
+print(groupAnagrams3(["hu","uh"]))
          
      
+
 
         
