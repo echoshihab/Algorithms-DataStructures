@@ -1,4 +1,5 @@
 
+from collections import defaultdict
 from typing import List
 
 """
@@ -31,22 +32,8 @@ strs[i] consists of lowercase English letters.
 """
 #brute force
 
-# def groupAnagrams(strs: List[str]) -> List[List[str]]:
-#     list_output = []
-#     for i in range(0, len(strs)):
-#         inner_item = [strs[i]]
-#         print(inner_item)
-#         for j in range(i+1, len(strs)):            
-#             if len(inner_item[0]) == len(strs[j]) and len(set(inner_item[0] + strs[j])) == len(inner_item[0]):                
-#                 inner_item.append(strs[j])
-#         list_output.append(inner_item)        
-#     return list_output
-
-
-# print(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
-
-# O(n ^ 2 * n log)
-def groupAnagrams2(strs: List[str]) -> List[List[str]]:
+# O(n ^ 2 * n log m)
+def groupAnagrams(strs: List[str]) -> List[List[str]]:
     rad = []
     hash_map  = {}
     duplicate_checker = []
@@ -66,6 +53,24 @@ def groupAnagrams2(strs: List[str]) -> List[List[str]]:
                         
     
 
+print(groupAnagrams(["",""]))
+print(groupAnagrams(["","b"]))
+print(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+print(groupAnagrams(["hhhhu","hhhuh"]))
+print(groupAnagrams(["","",  ""]))
+
+
+#o(n * m log m)
+
+def groupAnagrams2(strs: List[str]) -> List[List[str]]:
+    anagram_groups = defaultdict(list)
+
+    for string in strs:
+        sorted_string = ''.join(sorted(string))
+        anagram_groups[sorted_string].append(string)
+    
+    return anagram_groups.values()
+
 print(groupAnagrams2(["",""]))
 print(groupAnagrams2(["","b"]))
 print(groupAnagrams2(["eat","tea","tan","ate","nat","bat"]))
@@ -73,6 +78,9 @@ print(groupAnagrams2(["hhhhu","hhhuh"]))
 print(groupAnagrams2(["","",  ""]))
 
 
+    
 
+         
+     
 
         
