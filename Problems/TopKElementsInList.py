@@ -44,7 +44,33 @@ def topKFrequent(nums: List[int], k: int) -> List[int]:
     return solution_arr
 
 
-
 print(topKFrequent([1], 1))
 
 
+def topKFrequent2(nums: List[int], k: int) -> List[int]:    
+    frequency_count = defaultdict(int)
+    frequency_arr = [[] for i in range(0, len(nums) + 1)]
+    solution_arr = []
+
+    # populate the dict
+    for item in nums:
+        frequency_count[item] += 1
+    
+    # populate the arr
+    for key, value in frequency_count.items():
+        frequency_arr[value].append(key)
+    
+    #get the k most frequent
+    for i in range(len(frequency_arr)-1, 0, -1):
+        for n in frequency_arr[i]:
+            solution_arr.append(n)
+            if (len(solution_arr) == k):
+                return solution_arr
+
+
+
+print(topKFrequent2([1], 1))
+
+print(topKFrequent2([1,2], 2))
+
+print(topKFrequent2([1,1,1,2,2,3], 2))
