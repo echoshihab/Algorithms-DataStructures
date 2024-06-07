@@ -21,7 +21,7 @@ strs[i] contains only UTF-8 characters."""
 
 from typing import List
 
-# brute force
+# brute force (o n*M)
 
 def encode(strs: List[str]) -> str:
     string = str()
@@ -44,5 +44,27 @@ def decode(s: str) -> List[str]:
     return stringArr
 
 
-print(decode(encode(["we","say",":","yes"])))
+# O(n)
+def encode2(strs: List[str]) -> str:
+    string = str()
+    for item in strs:
+         string += str(len(item)) + item
+    print(string)
+    return string
 
+def decode2(s: str) -> List[str]:
+    stringArr = []
+    first_word_len_index = 0
+
+    while first_word_len_index < len(s) :
+        print(first_word_len_index)
+        start_slice = first_word_len_index + 1
+        end_slice = int(s[first_word_len_index]) + first_word_len_index + 1
+        stringArr.append(s[start_slice : end_slice])
+        first_word_len_index = end_slice
+
+    return stringArr
+
+print(decode2(encode2(["neet","code","love","you"])))
+print(decode2(encode2(["we","say",":","yes"])))
+    
