@@ -3,7 +3,7 @@ Basic data structures: stacks, queues, hash tables, and binary trees; searching 
 traversals, shortest paths; introduction to algorithmic design strategies; correctness and performance analysis.
 
 
-introduction to software deevelopment
+introduction to software development
 Software life cycle, quality attributes, requirements documentation, 
 specifying behavior; classes and objects, interface specification; 
 creational, structural, and behavioral software design patterns; implementation in code, reviews, testing and verification.
