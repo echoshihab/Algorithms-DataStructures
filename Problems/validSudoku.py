@@ -22,6 +22,8 @@ from typing import List
 # brute force
 def isValidSudoku(board: List[List[str]]) -> bool:
     matched_dict = defaultdict(int)
+    column_dict = defaultdict(list)
+
     is_valid_sudoku = True    
 
     #check row
@@ -45,20 +47,22 @@ def isValidSudoku(board: List[List[str]]) -> bool:
     
     # check column
     for item in board:
-        index = 0
-        matched_dict.clear()
-        print(item[index])
-        if item[index] == '.':
-            index += 1
-            continue
-        elif item[index] in matched_dict:
-            is_valid_sudoku = False
+        for i in range(0,9):
+            column_dict[i].append(item[i])
+
+    for val in column_dict.values():
+        if is_valid_sudoku == False:
             break
-        else:
-            index += 1
-            matched_dict[item[index]] = 1
-    
-    print(matched_dict)
+        matched_dict.clear()
+        for cell in val:
+            if cell == '.':
+                continue
+            elif cell in matched_dict:
+                is_valid_sudoku = False
+                break
+            else: 
+                matched_dict[cell] = 1
+
     if is_valid_sudoku == False:
         return is_valid_sudoku
 
@@ -100,7 +104,15 @@ def isValidSudoku(board: List[List[str]]) -> bool:
 
 print(
 isValidSudoku(
-[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+[["5","3",".",".","7",".",".",".","."],
+ ["6",".",".","1","9","5",".",".","."],
+ [".","9","8",".",".",".",".","6","."],
+ ["8",".",".",".","6",".",".",".","3"],
+ ["4",".",".","8",".","3",".",".","1"],
+ ["7",".",".",".","2",".",".",".","6"],
+ [".","6",".",".",".",".","2","8","."],
+ [".",".",".","4","1","9",".",".","5"],
+ [".",".",".",".","8",".",".","7","9"]]
 )
 )
 
