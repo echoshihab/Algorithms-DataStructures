@@ -33,16 +33,12 @@ def longestConsecutive(nums: List[int]) -> int:
     longest = 0
 
     for item in nums_set:
-        if(item - 1  in nums_set):
-            continue
-        else:
-            current_longest = 1
-            val = item
-            while val + 1 in nums_set:
-                current_longest += 1
-                val += 1
-            if current_longest > longest:
-                longest = current_longest
+        if(item - 1  not in nums_set):
+            length = 0            
+            while item + length in nums_set:
+                length += 1
+            longest = max(length, longest)
+            
     return longest
 
 longestConsecutive([0,3,7,2,5,8,4,6,0,1])
