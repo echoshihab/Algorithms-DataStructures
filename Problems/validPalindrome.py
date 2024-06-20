@@ -50,18 +50,16 @@ print(isPalindrome("race a car"))
 def isPalindrome2(s: str) -> bool:
     frontIndex = 0
     backIndex = len(s) - 1
-    result = True
     while frontIndex < backIndex:
         while s[frontIndex].isalnum() != True and frontIndex < len(s) -1 :
             frontIndex +=1
         while s[backIndex].isalnum() != True and backIndex >= 0:
             backIndex -= 1
         if s[frontIndex].lower() != s[backIndex].lower():
-            result = False
-            break
+            return False
         frontIndex += 1
         backIndex -= 1 
-    return result
+    return True
 
 print(isPalindrome2("A man, a plan, a canal: Panama"))
 print(isPalindrome2("race a car"))
