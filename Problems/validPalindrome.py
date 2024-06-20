@@ -51,9 +51,9 @@ def isPalindrome2(s: str) -> bool:
     frontIndex = 0
     backIndex = len(s) - 1
     while frontIndex < backIndex:
-        while s[frontIndex].isalnum() != True and frontIndex < len(s) -1 :
+        while s[frontIndex].isalnum() != True and frontIndex < backIndex:
             frontIndex +=1
-        while s[backIndex].isalnum() != True and backIndex >= 0:
+        while s[backIndex].isalnum() != True and backIndex > frontIndex:
             backIndex -= 1
         if s[frontIndex].lower() != s[backIndex].lower():
             return False
