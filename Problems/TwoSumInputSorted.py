@@ -45,7 +45,22 @@ test_case = [2,7,11,15]
 
 test_case2 = [2,3,4]
 
-print(twoSum(test_case, 9))
-print(twoSum(test_case, 9))
 
-print(twoSum(test_case2, 6))
+#O(n) runtime with constant space usage
+def twoSum2(numbers: List[int], target: int) -> List[int]:
+    left_index = 0
+    right_index = len(numbers) - 1
+
+    while left_index < right_index:
+        sum = numbers[left_index] + numbers[right_index]
+        if sum == target:
+            return [left_index+1, right_index+1]
+        elif sum > target:
+            right_index -= 1
+        else:
+            left_index += 1
+
+print(twoSum2(test_case, 9))
+print(twoSum2(test_case, 9))
+
+print(twoSum2(test_case2, 6))
