@@ -34,12 +34,12 @@ Constraints:
 from collections import defaultdict
 from typing import List
 
-
+#big O(n^2) 
 def threeSum(nums: List[int]) -> List[List[int]]:
     result = []
     nums.sort()
     for i in range(len(nums)):
-        if i > 0 and [nums[i]] == nums[i-1]:
+        if i > 0 and nums[i] == nums[i-1]:
             continue
         left_index = i+1
         right_index = len(nums) - 1
@@ -56,6 +56,6 @@ def threeSum(nums: List[int]) -> List[List[int]]:
                     left_index += 1
     return result
 
-print(threeSum([-1,0,1,2-1,4]))
+print(threeSum([-1,0,1,2,-1,-4]))
 
 
