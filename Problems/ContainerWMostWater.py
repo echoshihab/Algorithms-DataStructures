@@ -28,4 +28,20 @@ def maxArea(height: List[int]) -> int:
 
 print(maxArea([1,8,6,2,5,4,8,3,7]))
 
-    
+#big O(n)
+def maxArea2(height: List[int]) -> int:
+    max_area = 0
+    left_index = 0
+    right_index = len(height) - 1
+    while left_index < right_index:
+        contender_max = (right_index - left_index) * min(height[left_index], height[right_index])
+        if contender_max > max_area:
+            max_area = contender_max
+        if (height[left_index] >= height[right_index]):
+            right_index -=1
+        else:
+            left_index +=1
+
+    return max_area
+
+print(maxArea2([1,8,6,2,5,4,8,3,7]))
