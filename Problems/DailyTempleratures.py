@@ -47,3 +47,18 @@ def dailyTemperatures(temperatures: List[int]) -> List[int]:
 
 print(dailyTemperatures([30,60,90]))
 print(dailyTemperatures([73,74,75,71,69,72,76,73]))
+
+# O(n) space and time complexity
+def dailyTemperatures2(temperatures: List[int]) -> List[int]:
+    result = [0] * len(temperatures)
+    stack = []
+
+    for index, temperature in enumerate(temperatures):
+        while stack and temperature > temperatures[stack[-1]]:
+            stackIndex = stack.pop()
+            result[stackIndex] = (index - stackIndex)
+        stack.append(index)
+    return result
+
+print(dailyTemperatures2([30,60,90]))
+print(dailyTemperatures2([73,74,75,71,69,72,76,73]))
