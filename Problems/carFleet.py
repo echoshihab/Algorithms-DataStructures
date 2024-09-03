@@ -25,14 +25,15 @@ def carFleet(target: int, position: List[int], speed: List[int]) -> int:
     for i in range(len(position)):
         result_dict[position[i]] = speed[i]
     
-    position.sort()
+    position.sort(reverse=True)
+
 
     for item in position:
         step_target = target-item
-        steps_required = step_target // result_dict[item] + (step_target % result_dict[item] > 0)
+        steps_required = step_target / result_dict[item] 
 
         if stack: 
-            if steps_required < stack[-1]:
+            if steps_required > stack[-1]:
                 stack.append(steps_required)
         else:
             stack.append(steps_required)
@@ -44,9 +45,7 @@ def carFleet(target: int, position: List[int], speed: List[int]) -> int:
 
 print(carFleet(10, [1,4], [3,2]))
 print(carFleet(10, [4,1,0,7],  [2,2,1,1]))
+print(carFleet(10, [0,4,2], [2,1,3]))
 
 
 
-    
-
-        
