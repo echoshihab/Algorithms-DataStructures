@@ -17,6 +17,7 @@ Return the number of different car fleets that will arrive at the destination.""
 
 from typing import List
 
+#both solutions are O(nlogn) time due to sorting and o(n) space complexity
 
 
 def carFleet(target: int, position: List[int], speed: List[int]) -> int:
@@ -49,3 +50,18 @@ print(carFleet(10, [0,4,2], [2,1,3]))
 
 
 
+def carFleet2(target: int, position: List[int], speed: List[int]) -> int:
+    count = previousValue = 0
+    for pos, spd in sorted(zip(position, speed), reverse=True): 
+        targetTime = (target - pos)/spd # time to arrive at target 
+        print("count", count)
+        if previousValue < targetTime: 
+            count += 1
+            previousValue = targetTime
+    return count 
+
+
+
+print(carFleet2(10, [1,4], [3,2]))
+print(carFleet2(10, [4,1,0,7],  [2,2,1,1]))
+print(carFleet2(10, [0,4,2], [2,1,3]))
