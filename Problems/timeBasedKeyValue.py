@@ -31,13 +31,17 @@ class TimeMap:
             self.ds[key] = [[timestamp, value]]
 
         
-
+    def display(self):
+        print(self.ds)
     def get(self, key: str, timestamp: int) -> str:
         if key not in self.ds or not self.ds[key]:
             return ""
+        elif len(self.ds[key]) == 1 and self.ds[key][0][0] <= timestamp:
+            return self.ds[key][0][1]
         else:
             left = 0
             right = len(self.ds[key]) - 1
+            prev_mid = None
             while left <= right:
                 mid = (left + right) // 2
                 if self.ds[key][mid][0] == timestamp:
@@ -45,10 +49,23 @@ class TimeMap:
                 elif self.ds[key][mid][0] > timestamp:
                     right = mid - 1
                 elif self.ds[key][mid][0] < timestamp:
+                    prev_mid = mid
                     left = mid + 1
-                    if left < len(self.ds[key]) and self.ds[key][left][0] > timestamp:
-                        return self.ds[key][mid][1]
-            return ""
+            if prev_mid is None:
+                return ""
+            else:
+                return self.ds[key][prev_mid][1]
+        
+
+    
+test = TimeMap()
+test.set("foo", "bar", 1)
+print(test.get("foo", 1))
+print(test.get("foo", 3))
+test.set("foo", "bar2", 4)
+print(test.get("foo", 4))
+print(test.get("foo", 5))
+test.display()
 
 
 # Your TimeMap object will be instantiated and called as such:
