@@ -27,15 +27,21 @@ from typing import List
 
 
 def maxProfit(prices: List[int]) -> int:
+        if(len(prices) <= 1):
+            return 0
+
         i = 1        
         max_num = max(prices[i:len(prices)]) 
+        
         max_profit = max(0, max_num - prices[0])
 
         # -1 because we don't care about the last value
-        while i < len(prices) - 1: 
+        while i < len(prices): 
+
             if prices[i] == max_num:
-                max_num = max(prices[i+1:len(prices)])
-            max_profit = max(max_profit, max_num - prices[i])
+                if i != len(prices) - 1:
+                    max_num = max(prices[i+1:len(prices)])
+                max_profit = max(max_profit, prices[i] - min(prices[0:i]))
             i+=1    
 
         return max_profit
@@ -43,3 +49,32 @@ def maxProfit(prices: List[int]) -> int:
 
 print(maxProfit([7,1,5,3,6,4]))
 print(maxProfit([7,6,4,3,1]))
+
+
+# O(n) time complexity using two pointers
+def maxProfit2(prices: List[int]) -> int:
+    if(len(prices) <= 1):
+        return 0
+
+    l = 0
+    r = l + 1
+    max_profit = 0
+
+    while r < len(prices):
+        if prices[l] < prices[r]:
+            max_profit = max(max_profit, prices[r] - prices[l])
+        else:
+            l = r
+
+        r += 1
+    
+    return max_profit
+        
+
+print(maxProfit2([7,1,5,3,6,4]))
+print(maxProfit2([7,6,4,3,1]))
+         
+         
+
+
+     
