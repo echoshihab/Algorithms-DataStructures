@@ -74,7 +74,20 @@ def maxProfit2(prices: List[int]) -> int:
 print(maxProfit2([7,1,5,3,6,4]))
 print(maxProfit2([7,6,4,3,1]))
          
-         
+# O(n) alternate O(n) solution (Kadane's algorithm)
+def maxProfit3(prices: List[int]) -> int:
+    minPrice = prices[0]
+    maxProfit = 0
+
+    for i in range(1, len(prices)):
+        minPrice = min(minPrice, prices[i])
+        maxProfit = max(maxProfit, prices[i] - minPrice)
+    
+    return maxProfit
+
+print(maxProfit3([7,1,5,3,6,4]))
+print(maxProfit3([7,6,4,3,1]))
+
 
 
      
