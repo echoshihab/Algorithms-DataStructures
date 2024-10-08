@@ -49,3 +49,31 @@ def characterReplacement(s: str, k: int) -> int:
 
 print(characterReplacement("ABAB", 2))
 print(characterReplacement("AABABBA", 1))
+
+
+
+#O(26n) -> O(n)
+def characterReplacement2(s: str, k: int) -> int:
+    char_counter = {}
+
+    l = 0
+    result = 0
+    max_frequency = 0
+
+    for r in range(len(s)):
+        char_counter[s[r]] = 1 + char_counter.get(s[r], 0)
+        max_frequency = max(max_frequency, char_counter.get(s[r]))
+
+        window_length = r-l + 1
+
+        if window_length - max_frequency > k:
+            char_counter[s[l]] -= 1
+            l +=1
+            
+        result = max(result, r - l + 1)
+    
+    return result
+
+
+print(characterReplacement2("ABAB", 2))
+print(characterReplacement2("AABABBA", 1))
