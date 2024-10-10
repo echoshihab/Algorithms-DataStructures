@@ -65,5 +65,34 @@ def checkInclusion(s1: str, s2: str) -> bool:
 # print(checkInclusion("ab", "eidbaooo"))
 # print(checkInclusion("ab", "eidboaoo"))
 # print(checkInclusion("hello", "ooolleoooleh"))
-print(checkInclusion("abcdxabcde", "abcdeabcdx"))
-print(checkInclusion("hello", "ooolleoooleh"))
+# print(checkInclusion("abcdxabcde", "abcdeabcdx"))
+# print(checkInclusion("hello", "ooolleoooleh"))
+
+
+def checkInclusion2(s1: str, s2: str) -> bool:
+    s1_tracker = {}
+    s2_tracker = {}
+
+    for letter in s1:
+        s1_tracker[letter] = s1_tracker.get(letter, 0) + 1
+   
+    l = 0
+    for r in range(len(s2)):
+        s2_tracker[s2[r]] = s2_tracker.get(s2[r], 0) + 1
+
+        if (r - l + 1) > len(s1):
+            if s2_tracker[s2[l]] == 1:
+                del s2_tracker[s2[l]]
+            else:
+                s2_tracker[s2[l]] -= 1
+            
+            l += 1                  
+            
+        if s2_tracker == s1_tracker:
+            return True
+    return False
+
+# print(checkInclusion2("abcdxabcde", "abcdeabcdx"))
+# print(checkInclusion2("hello", "ooolleoooleh"))
+
+
