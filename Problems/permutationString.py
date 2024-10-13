@@ -107,10 +107,7 @@ def checkInclusion3(s1: str, s2: str) -> bool:
             s2_freq[ord(s2[i]) - ord('a')] += 1
         
             if i >= len(s1):
-                print(i)
-                print(s2_freq)
                 s2_freq[ord(s2[i-len(s1)]) - ord('a')] -= 1
-                print(s2_freq)
             
             if s1_freq == s2_freq:
                 return True
