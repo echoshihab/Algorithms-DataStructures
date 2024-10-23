@@ -39,4 +39,20 @@ def printList(head: Optional[ListNode]):
     print("None")
 
 printList(result)
-        
+
+
+
+def reverseList2(head: ListNode) -> ListNode:
+    prev_node = None
+
+    while head:
+        next_node = head.next
+        head.next = prev_node
+        prev_node = head
+        head = next_node
+
+    return prev_node
+
+result = reverseList2(ListNode(1, ListNode(2, ListNode(3))))
+
+printList(result)
