@@ -31,3 +31,12 @@ def reverseList(head: Optional[ListNode]) -> Optional[ListNode]:
 result = reverseList(ListNode(1, ListNode(2, ListNode(3))))
 
 
+def printList(head: Optional[ListNode]):
+    current = head
+    while current is not None:
+        print(current.val, end=" -> ")
+        current = current.next
+    print("None")
+
+printList(result)
+        
