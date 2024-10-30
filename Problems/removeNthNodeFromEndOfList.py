@@ -46,3 +46,25 @@ def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
 
 
     
+def removeNthFromEnd2(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    # set dummy node
+
+    first = dummy = ListNode()
+
+    second = dummy.next = head
+
+    # set first and second marker
+    while n > 0:
+        second = second.next
+        n -= 1
+    
+    # loop till the markers are set appropriately
+    while second:
+        first = first.next
+        second = second.next
+
+    #delete the node
+    first.next = first.next.next
+
+
+    return dummy.next
