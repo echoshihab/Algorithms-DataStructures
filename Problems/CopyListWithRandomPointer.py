@@ -30,20 +30,25 @@ class Node:
         self.random = random
 
 
+#O(n) time complexity
 def copyRandomList(head: Optional[Node]) -> Optional[Node]:
-        indexList = []
 
-        #populate an array with nodes with all values
-        while head:
-             newHead = Node(head.val)
-             indexList.append(newHead)
-             head = head.next
+        oldToNewDict = {None: None}
 
-        #now populate the randoms
+        # create hashmap with copy of unlinked node of original as value
+        curr = head
+        while curr:             
+             oldToNewDict[curr] = Node(curr.val)
+             curr = curr.next
 
+        # create the links for next and random as before using the hashmap
+        curr = head
+        while curr:            
+            oldToNewDict[curr].next = oldToNewDict.get(curr.next)  # will be none if value is None
+            oldToNewDict[curr].random = oldToNewDict.get(curr.random) # will be none if value is None
+            curr = curr.next
 
-        #and lastly point to the next nodes
-
+        return oldToNewDict[head]  # if no head, the result will will be None due to the dict initialization with None key
 
         
 
