@@ -12,7 +12,7 @@ class ListNode:
         self.next = next
 
 # O(n+m)
-def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
     
     l1Text = ''
 
@@ -42,3 +42,31 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
     
 
     return head.next
+
+
+# O(n)
+def addTwoNumbers2(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+    head = curr = ListNode()
+
+    carry = 0
+
+    while l2 or l1 or carry:
+        l1Val = l1.val if l1 else 0
+        l2Val = l2.val if l2 else 0
+        total = l1Val + l2Val + carry
+        val = total % 10
+        curr.next = ListNode(val)
+        
+        carry = total // 10
+        curr = curr.next
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+    return head.next
+
+
+
+
+        
+
