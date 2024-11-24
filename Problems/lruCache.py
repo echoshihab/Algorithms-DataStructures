@@ -61,11 +61,36 @@ class LRUCache:
 
     def get(self, key: int) -> int:
         if key in self.cache:
+            self.remove(self.cache[key]) #remove the node
+            self.insert(self.cache[key]) #insert the node to right
             return self.cache[key].val
         return -1
 
     def put(self, key: int, value: int) -> None:
-        return None
+        if key in self.cache:
+            self.remove(self.cache[key])
+        self.cache[key] = Node(key, value)
+        self.insert(self.cache[key])
+
+        if len(self.cache) > self.capacity:
+            lru = self.left.next
+            self.remove(lru)
+            del self.cache[lru.key]
+
+    
+    # Insert node to right (MRU)
+    def insert(self, node):
+        prev, next = self.right.prev, self.right
+        prev.next = next.prev = node
+        node.next, node.prev = next, prev
+
+
+
+    # Remove from list
+    def remove(self, node):
+        prev, next = node.prev, node.next
+        prev.next, next.prev = next, prev
+    
 
 
         
