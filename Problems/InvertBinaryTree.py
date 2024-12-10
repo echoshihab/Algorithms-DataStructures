@@ -14,23 +14,17 @@ class TreeNode:
 # O(n)        
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        dummy = root
-        self.invertSingleLevel(root)
-        return dummy
-            
+        if not root:
+            return None
 
-    def invertSingleLevel(self, root):
-        if root == None:
-            return
-        else:
-            tempL = root.left
-            tempR = root .right
-            root.left = tempR
-            root.right = tempL
+        temp = root.right
+        root.right = root.left
+        root.left = temp
 
-            self.invertSingleLevel(root.left)
-            self.invertSingleLevel(root.right)
-            
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        
+        return root
             
 
 
