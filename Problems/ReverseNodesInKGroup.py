@@ -39,7 +39,7 @@ class Solution:
         prevGroup = dummy = ListNode(0, head)
 
         while True:
-            nodeK = self.getKNode(self, prevGroup, k)
+            nodeK = self.getKNode(prevGroup, k)
             if not nodeK:
                 break
 
