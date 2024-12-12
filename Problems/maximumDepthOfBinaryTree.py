@@ -6,7 +6,8 @@ from the root node down to the farthest leaf node.
 """
 
 
-from typing import Optional
+import collections
+from typing import Deque, Optional
 
 
 class TreeNode:
@@ -22,6 +23,30 @@ class Solution:
             return 0
         
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+
+    def maxDepthBFS(self, root: Optional[TreeNode]) -> int:
+
+        if not root:
+            return 0
+ 
+        level = 0
+        calcDeque = collections.deque()
+        calcDeque.append(root)
+        
+
+        while calcDeque:
+            for i in range(len(calcDeque)):
+                root = calcDeque.popleft()
+                if root.left:
+                    calcDeque.append(root.left)
+                if root.right:
+                    calcDeque.append(root.right)
+            level += 1
+            
+        return level
+                
+
+
 
             
         
