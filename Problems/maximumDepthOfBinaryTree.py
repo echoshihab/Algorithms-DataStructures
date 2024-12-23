@@ -44,7 +44,23 @@ class Solution:
             level += 1
             
         return level
-                
+    
+    def iterativeDFS(self, root: Optional[TreeNode]) -> int:
+        stack = [[root, 1]]
+        max_depth = 0
+
+        while stack:
+            node, depth = stack.pop()
+
+            if node:
+                max_depth = max(max_depth, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+        
+        return max_depth
+
+
+
 
 
 
