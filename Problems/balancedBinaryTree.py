@@ -33,4 +33,24 @@ class Solution:
         
         return self.result
 
-            
+    def isBalanced2(self, root: Optional[TreeNode]) -> bool:
+
+        def checkBalance(root):
+            if root is None:
+                return 0
+            left = checkBalance(root.left)
+            right = checkBalance(root.right)
+
+            if left == -1 or right == -1 or abs(left - right) > 1:
+                return - 1
+
+            return 1 + max(left, right)
+
+        
+        return checkBalance(root) != -1
+
+
+
+
+
+
