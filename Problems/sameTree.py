@@ -20,18 +20,14 @@ class TreeNode:
         self.left = left
         self.right = right
 
+#O(p + q)
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if p == q == None:
             return True
-        if p == None or q == None:
+        if p == None or q == None or p.val != q.val:
             return False
         
-        left, right = self.isSameTree(p.left, q.left), self.isSameTree(p.right, q.right)
-
-        if not left or not right:
-            return False
-        
-        return p.val == q.val and left and right
+        return  self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         
         
