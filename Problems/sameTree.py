@@ -22,18 +22,16 @@ class TreeNode:
 
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if p == q == None:
+            return True
+        if p == None or q == None:
+            return False
+        
+        left, right = self.isSameTree(p.left, q.left), self.isSameTree(p.right, q.right)
 
-        def checkSame(root1 : Optional[TreeNode] , root2 : Optional[TreeNode]) -> bool:
-            if root1 == root2 == None:
-                return True
-            if root1 == None or root2 == None:
-                return False
-            
-
-            left, right = checkSame(root1.left, root2.left), checkSame(root1.right, root2.right)
-
-            if not left or not right:
-                return False
-            
-            return root1.val == root2.val and left and right
+        if not left or not right:
+            return False
+        
+        return p.val == q.val and left and right
+        
         
