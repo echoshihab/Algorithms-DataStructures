@@ -13,48 +13,19 @@ p != q
 p and q will exist in the BST.
 ”"""
 
+"O(log(n))"
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         
-        # ensure p is smaller than q
-        if p > q:        
-            p,q = q,p
+      curr = root
 
-        # find node p and queue up node values
-        queue = self.findNode(p)        
-
-        self.result = None
-
-        return self.findLCA(root, q, queue)
-    
-    def findLCA(self, root, node, queue):
-        if node.val == root.val:
-            return self.result
-
-        if root.val != queue[0]:
-            return self.result
-        
-        queue.pop(0)
-        if node.val > root.val:
-            return self.findLCA(node, root.right)
-        
-        return self.findLCA(node, root.left)
-            
-
-        # find node q and dequeue node values
-        # if cannot dequeue, we have found the common denominator
-
-    def findNode(self, root, node):
-        queue = []
-
-        queue.append(root.val)
-
-        if node.val == root.val: return queue
-
-        if node.val > root.val:
-            return self.findNode(node, root.right)
-        
-        return self.findNode(node, root.left)
+      while curr:
+        if p.val > curr.val and q.val > curr.val:
+            curr = curr.right
+        elif p.val < curr.val and q.val < curr.val:
+            curr = curr.left
+        else:
+            return curr
 
 
 
