@@ -9,6 +9,7 @@ The number of nodes in the tree is in the range [0, 2000].
 
 
 from collections import defaultdict
+import collections
 from typing import List, Optional
 
 
@@ -18,7 +19,7 @@ class TreeNode:
         self.left = left
         self.right = right
         
-
+# first pass O(n + m)
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
 
@@ -42,4 +43,25 @@ class Solution:
 
         self.populateDict(root.left, currDepth + 1)
         self.populateDict(root.right, currDepth + 1)
+
+
+class Solution2:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:  
+        result = []
+        queue = collections.deque()
+
+        queue.append(root)
+
+        while queue:
+            currLevel = []
+            for i in range(len(queue)):
+                node = queue.popleft()
+                if node:
+                    currLevel.append(node.val)
+                    queue.append(node.left)
+                    queue.append(node.right)
+
+            if currLevel:
+                result.append(currLevel)
         
+        return result
