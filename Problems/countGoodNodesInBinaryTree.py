@@ -9,6 +9,7 @@ Each node's value is between [-10^4, 10^4].
  """
 
 
+import collections
 from Problems.binaryTreeRightSideView import TreeNode
 
 
@@ -31,4 +32,37 @@ class Solution:
             return val_to_add + dfs(root.left, currMax) + dfs(root.right, currMax)
 
         return dfs(root, root.val)
+    
+
+
+class Solution2:
+    def goodNodes(self, root: TreeNode) -> int:
+        result = 0
+
+        if not root:
+            return result    
+
+        queue = []
+        max_value = root.val
+
+        queue.append((root, root.val))
+
+        while queue:
+            for _ in range(len(queue)):
+                node, max_value = queue.pop()
+                if node:
+                    if node.val >= max_value:
+                        result += 1
+                        max_value = node.val
+                    queue.append((node.left, max_value))
+                    queue.append((node.right, max_value))
+            
+        return result
+
+
+
+            
+
+
+           
         
