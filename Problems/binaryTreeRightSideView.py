@@ -43,6 +43,23 @@ class Solution:
             result.append(level_result)
 
         return result
+    
+class Solution2:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        
+        result = []
+        def depthFirstSearch(root, level = 0):
+            if root:
+                if level == len(result): # meaning the first item added (right view)
+                    result.append(root.val)
+                
+                depthFirstSearch(root.right, level + 1) # call right first
+                depthFirstSearch(root.left, level + 1)
+
+        depthFirstSearch(root)
+        return result
+
+
                     
 
 
