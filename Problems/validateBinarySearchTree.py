@@ -18,27 +18,20 @@ from Problems.treeDefinition import TreeNode
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        left = right = True
+        return self.validate(root, float("-inf"), float("inf"))
 
-        if root.left:
-            if root.left.val < root.val:
-                left = self.isValidBST(root.left)
-            else:
-                left = False
-        else:
-            left = True
+        
+    def validate(self, node: Optional[TreeNode], left, right):
 
-            
-        if root.right:
-            if root.right.val > root.val:
-                right = self.isValidBST(root.right)
-            else:
-                right = False
-        else:
-            right = True
+        if not node:
+            return True
+        if not (node.val < right and node.val > left):
+            return False
         
 
-        return left and right
+        return (self.validate(node.left, left, node.val) and
+        self.validate(node.right, node.val, right))
+
 
         
 
