@@ -7,30 +7,20 @@ The number of nodes in the tree is n.
 """
 
 
-import collections
 from typing import Optional
 from Problems.treeDefinition import TreeNode
 
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        k_queue = collections.deque()
+        in_order_arr = []
 
-        def k_arr_dfs(node):
+        def inOrderDFS(node):
             if node is None:
                 return
-            if not k_queue:
-                k_queue.append(node.val)
-            elif len(k_queue) < k:
-                if k_queue[-1] > node.val:
-                    k_queue.appendleft(node.val)
-                else:
-                    k_queue.append(node.val)
-            elif k_queue[k-1] > node.val:
-                k_queue.popleft()
-                k_queue.append(node.val)
-            k_arr_dfs(node.left)
-            k_arr_dfs(node.right)
-
-        k_arr_dfs(root)
-        return k_queue[k-1]
+            inOrderDFS(node.left)
+            in_order_arr.append(node.val)
+            inOrderDFS(node.right)
+        
+        inOrderDFS(root)
+        return in_order_arr[k-1]
