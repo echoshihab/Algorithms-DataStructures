@@ -15,6 +15,7 @@ inorder is guaranteed to be the inorder traversal of the tree.
 """
 
 
+import collections
 from typing import List, Optional
 
 from Problems.treeDefinition import TreeNode
@@ -36,3 +37,28 @@ class Solution:
         root.right = self.buildTree(preorder[mid + 1:], inorder[mid + 1: ])
 
         return root
+
+class Solution2:
+    def buildTree(self, preorder, inorder):
+        #set up hashmap
+        inorder_index_map = {}
+
+        for i in range(len(inorder)):
+            inorder_index_map[inorder[i]] = i
+
+        #set up deque so we can popleft from preorder items
+        preorder = collections.deque(preorder)
+
+        def build(left, right):
+            if left > right:
+                return None
+            
+            root_val = preorder.popleft()
+            root = TreeNode(root_val)
+            root.left =  build(left, inorder_index_map[root_val] - 1)
+            root.right  = build(inorder_index_map[root_val] + 1, right)
+
+            return root
+        
+        return build(0, len(preorder) - 1)
+            
