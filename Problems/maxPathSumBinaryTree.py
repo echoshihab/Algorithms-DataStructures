@@ -11,31 +11,28 @@ Constraints:
 -1000 <= Node.val <= 1000
 """
 
-
 from typing import Optional
-from Problems.balancedBinaryTree import TreeNode
+from Problems.treeDefinition import TreeNode
 
 
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        self.max_val = None
-        self.curr_max = None
-            
-        self.calculate_max(root)
-        return self.max_val
-        
-    def calculate_max(self, node):
-        if not node:
-            self.max_val = max(self.max_val, self.curr_max)
-            return
-        if not self.max_val:
-            self.max_val = node.val
-            self.curr_max = node.val
-        elif (node.val + self.curr_max) < node.val :
-            self.max_val = max(self.max_val, self.curr_max)
-            self.curr_max = node.val
-        else:
-            self.curr_max = self.max_val + node.val
+        self.result = root.val
+        #final return is ignored because root has no previous node to return to
+        _ = self.calculateMax(root) 
 
-        self.calculate_max(node.left)
-        self.calculate_max(node.right)
+        return self.result
+
+    def calculateMax(self, node):
+        if not node:
+            return 0
+        
+        leftMax = max(0, self.calculateMax(node.left))
+        rightMax = max(0, self.calculateMax(node.right))
+
+        # there can be only 1 split in a path
+        self.result = max(self.result, node.val + leftMax + rightMax)
+        
+        # return without split
+        return node.val + max(leftMax, rightMax)
+
