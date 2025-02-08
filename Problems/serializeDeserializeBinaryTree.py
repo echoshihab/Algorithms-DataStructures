@@ -21,32 +21,37 @@ class TreeNode(object):
         self.left = None 
         self.right = None 
 
-#example Tree
+
+
 class Codec:
 
-    def serialize(self, root: TreeNode) -> str:
-        queue = collections.deque()
-        queue.append(root)
-        result = []
+    # O(n)
+    def serialize(self, root):
+        if not root:
+            return ""
+        return f"{root.val},{self.serialize(root.left)},{self.serialize(root.right)}"
 
+        
+    # O(n)
+    def deserialize(self, data):
+        self.list_converted = collections.deque(data.split(","))  
+        return self.dfs()
 
-        while queue:
-            for i in range(len(queue)):
-                node = queue.popleft()
-                if node:
-                    result.append(node.val)
-                    queue.append(node.left)
-                    queue.append(node.right)
-                else:                    
-                    result.append(None)            
-                    
+    def dfs(self):
+        node_val = self.list_converted.popleft() # O(1)
 
-        return str(result)
+        if not node_val:
+            return
 
+        root = TreeNode(node_val)
+        root.left = self.dfs()
+        root.right = self.dfs()
 
+        return root
+        
+        
+        
 
-    def deserialize(self, data: str) -> TreeNode:
-        pass
 
 
 #example tree
@@ -57,4 +62,8 @@ root.right.left = TreeNode(4)
 root.right.right = TreeNode(5)
 
 codec = Codec()
-print(codec.serialize(root))
+test = codec.serialize(root)
+test2 = codec.deserialize(test)
+test3 = codec.serialize(test2)
+
+print(test3)
