@@ -49,7 +49,55 @@ class Codec:
 
         return root
         
+
+class Codec2:
+
+    # O(n)
+    def serialize(self, root):
+        queue = collections.deque()
+        queue.append(root)
+        result = ""
+        while queue:
+            for i in range(len(queue)):
+                node = queue.popleft()
+                if node:
+                    result += f",{node.val}"
+                    queue.append(node.left)
+                    queue.append(node.right)
+                else:                    
+                    result += ","
+                    
+        return result
+
+    def deserialize(self, data):
+        if not data:
+            return None
+
+        values = data.split(",")
+        root = TreeNode(int(values[0]))
+        queue = collections.deque([root])
+        i = 1
+
+        while queue:
+            node = queue.popleft()
+
+            if values[i]:
+                leftNode = TreeNode(int(values[i]))
+                node.left = leftNode
+                queue.append(leftNode)
+            i += 1
+
+            if values[i]:
+                rightNode = TreeNode(int(values[i]))
+                node.right = rightNode
+                queue.append(rightNode)
+            i += 1
+
+        return root
         
+
+
+
         
 
 
@@ -61,9 +109,14 @@ root.right = TreeNode(3)
 root.right.left = TreeNode(4)
 root.right.right = TreeNode(5)
 
-codec = Codec()
-test = codec.serialize(root)
-test2 = codec.deserialize(test)
-test3 = codec.serialize(test2)
+# codec = Codec()
+# test = codec.serialize(root)
+# print(test)
+# test2 = codec.deserialize(test)
+# test3 = codec.serialize(test2)
 
-print(test3)
+# print(test3)
+
+codec2 = Codec2()
+test4 = codec2.serialize(root)
+print(test4)
