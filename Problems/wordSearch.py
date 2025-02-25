@@ -56,10 +56,14 @@ class Solution:
                 return
 
             visit.add((r,c))
+            parent = node
             node = node.children[board[r][c]]
             word += board[r][c]
             if node.end:
                 result.append(word)
+                node.end = False 
+                if not node.children:
+                    del parent.children[board[r][c]]
 
             dfs(r-1, c, node, word)
             dfs(r + 1, c, node, word)
@@ -70,6 +74,7 @@ class Solution:
 
         for i in range(rows):
             for j in range(columns):
+                if board[i][j] in root.children:
                     dfs(i, j, root, "")
         
         return result
