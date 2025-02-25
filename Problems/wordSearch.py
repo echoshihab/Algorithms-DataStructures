@@ -23,7 +23,7 @@ All the strings of words are unique.
 from typing import List
 
 class TrieNode:
-    def ___init__(self):
+    def __init__(self):
         self.children = {}
         self.end = False
     
@@ -35,10 +35,42 @@ class TrieNode:
             curr = curr.children[c]
         curr.end = True
 
+
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         root = TrieNode()
-        for word in word:
+        for word in words:
             root.addWord(word)
+
+        rows = len(board)
+        columns = len(board[0]) 
             
+        result = []
+        visit = set()
+
+        def dfs(r, c, node, word):
+            if (r < 0 or  c < 0 or 
+            r == rows or c == columns 
+            or (r, c) in visit 
+            or board[r][c] not in node.children):
+                return
+
+            visit.add((r,c))
+            node = node.children[board[r][c]]
+            word += board[r][c]
+            if node.end:
+                result.append(word)
+
+            dfs(r-1, c, node, word)
+            dfs(r + 1, c, node, word)
+            dfs(r, c - 1, node, word)
+            dfs(r, c + 1, node, word)
+            
+            visit.remove((r,c))
+
+        for i in range(rows):
+            for j in range(columns):
+                    dfs(i, j, root, "")
         
+        return result
+
