@@ -23,8 +23,9 @@ All the numbers of nums are unique.
 
 from typing import List
 
-# iterative backtracking - n * 2^n
+
 class Solution:
+    # iterative backtracking - n * 2^n
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = [[]]
 
@@ -33,8 +34,30 @@ class Solution:
             print(result)
         return result
 
+    # add recursive backtracking solution - n & 2^n            
+    def subsetsDfs(self, nums: List[int]) -> List[List[int]]:
+        result = []
+
+        current = []
+        def dfs(index: int):
+            if index >= len(nums):
+                result.append(current.copy())
+                return 
             
+            current.append(nums[index])
+            dfs(index+1)
+
+            current.pop()
+            dfs(index+1)
+
+
+        dfs(0)
+        return result
+    
+        
 
 
 sol = Solution()
 sol.subsets([1,2,3])
+
+
