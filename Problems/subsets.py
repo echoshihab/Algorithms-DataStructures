@@ -23,26 +23,18 @@ All the numbers of nums are unique.
 
 from typing import List
 
+# iterative backtracking - n * 2^n
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = [[]]
 
-        for i in range(len(nums)):
-            j = i
-            while j < len(nums):
-                if nums[i] == nums[j]:
-                    result.append([nums[i]])
-                elif len(nums[i:j+1]) > 2:
-                    result.append([nums[i], nums[j]])
-                    result.append(nums[i:j+1])
-                else:
-                    result.append([nums[i], nums[j]])
-                    
-                j += 1
-            
-        
+        for num in nums:
+            result += [i + [num] for i in result]
+            print(result)
         return result
+
             
 
 
-        
+sol = Solution()
+sol.subsets([1,2,3])
