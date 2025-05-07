@@ -23,25 +23,21 @@ from typing import List
 
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        
-        
         result = []
-        result_dict = {}
+        nums.sort()
 
         def dfs(index, current):
             if index == len(nums):
-                temp = current.copy()
-                temp.sort()
-                temp_key = "".join(str(temp))
-                if result_dict.get(temp_key) is None:
-                    result.append(current.copy())
-                    result_dict[temp_key] = 1
+                result.append(current.copy())
                 return
             
             current.append(nums[index])
             dfs(index+1, current)
             
-            current.pop()
+            last_elem = current.pop()
+            while index + 1 < len(nums) and nums[index + 1] == last_elem:
+                index = index + 1
+
             dfs(index + 1, current)
 
         
