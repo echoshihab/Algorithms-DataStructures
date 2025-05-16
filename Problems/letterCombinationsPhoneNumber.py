@@ -46,10 +46,45 @@ class Solution:
                 dfs(index + 1, curr)
                 curr = curr[:-1]
 
-            
-            dfs(0, current)
+            if digits:
+                dfs(0, current)
 
         return result
+    
+
+    def letterCombinations2(self, digits: str) -> List[str]:
+        
+        result = []
+        conversion = {
+            "2" : "abc",
+            "3" : "def",
+            "4" : "ghi",
+            "5" : "jkl",
+            "6" : "mno",
+            "7" : "qprs",
+            "8" : "tuv",
+            "9" : "wxyz"
+        }
+
+        def dfs(index, curr):
+
+            if len(curr) == len(digits):
+                result.append(curr)
+                return
+            
+            for c in conversion[digits[index]]:
+                dfs(index+1, curr + c)
+
+
+
+            
+        if digits:
+            dfs(0, "")
+
+
+        return result
+
+    
 
             
 
