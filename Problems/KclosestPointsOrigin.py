@@ -15,7 +15,7 @@ import heapq
 from typing import List
 
 
-def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
         min_heap = []
         result = []
 
@@ -27,4 +27,18 @@ def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
             result.append(heapq.heappop(min_heap)[1])
             
             
+        return result
+
+
+
+def kClosestMaxHeap(points: List[List[int]], k: int) -> List[List[int]]:
+        max_heap = []
+
+        for x,y in points:
+            distance = ((0-x)**2 + (0 - y)**2)**0.5
+            heapq.heappush(max_heap, (-(distance), [x,y]))
+            if len(max_heap) > k:
+                 heapq.heappop(max_heap)            
+            
+        result = [item[1] for item in max_heap]
         return result
