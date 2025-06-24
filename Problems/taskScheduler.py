@@ -10,7 +10,7 @@ tasks[i] is an uppercase English letter.
 0 <= n <= 100
 
 """
-from collections import deque
+from collections import Counter, deque
 import heapq
 from typing import List
 
@@ -23,16 +23,9 @@ class Solution:
 
         
         ## A
-        letterCount = {}
-
-        for letter in tasks:
-            if letter not in letterCount:
-                letterCount[letter] = -1
-            else:
-                letterCount[letter] -=1
-
+        letterCount = Counter(tasks)
         ##B
-        max_heap = list(letterCount.values())
+        max_heap = [-cnt for cnt in letterCount.values()]
         heapq.heapify(max_heap)
 
         doubleQueue = deque() # for preventing reuse of letters while in gap
@@ -42,18 +35,17 @@ class Solution:
         cpu_intervals = 0
 
         while max_heap or doubleQueue:
-            
+            cpu_intervals += 1
+
             if max_heap:
-                popped = heapq.heappop(max_heap)
-                if popped < -1:
-                    doubleQueue.append([popped + 1, cpu_intervals + n])
+                count = 1 + heapq.heappop(max_heap)
+                if count:
+                    doubleQueue.append([count, cpu_intervals + n])
 
             if doubleQueue and doubleQueue[0][1] == cpu_intervals:
                 heapq.heappush(max_heap, doubleQueue.popleft()[0])
 
-
-
-            cpu_intervals += 1
+            
         
         return cpu_intervals
 
