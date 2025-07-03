@@ -15,6 +15,8 @@ import heapq
 from typing import List
 
 class Solution:
+
+    
     def leastInterval(self, tasks: List[str], n: int) -> int:
         ##A. need total count of each letter
         ##B. need to ensure we tackle letters with highest frequency first
