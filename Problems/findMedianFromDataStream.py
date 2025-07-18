@@ -37,17 +37,22 @@ class MedianFinder:
         heapq.heappush(self.smallHeap, -num)
 
         # make sure every element in small heap <= every element in large
-        if self.smallHeap and self.largeHeap and abs(self.smallHeap[0]) > self.largeHeap[0]:
+        if self.smallHeap and self.largeHeap and -(self.smallHeap[0]) > self.largeHeap[0]:
             val = heapq.heappop(self.smallHeap)
-            heapq.heappush(abs(self.largeHeap), val)
+            heapq.heappush(self.largeHeap, -(val))
 
         # handle uneven size - 2 or greater
         if len(self.smallHeap) > len(self.largeHeap) + 1:
             val = heapq.heappop(self.smallHeap)
-            heapq.heappush(self.largeHeap, abs(val))
+            heapq.heappush(self.largeHeap, -(val))
         if len(self.largeHeap) > len(self.smallHeap) + 1:
             val = heapq.heappop(self.largeHeap)
             heapq.heappush(self.smallHeap, -val)
 
     def findMedian(self) -> float:
-        
+        if len(self.smallHeap) > len(self.largeHeap):
+            return -(self.smallHeap[0])
+        elif len(self.largeHeap) > len(self.smallHeap):
+            return self.largeHeap[0]
+        else:
+            return (-(self.smallHeap[0]) + self.largeHeap[0])/2      
