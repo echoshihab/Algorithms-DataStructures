@@ -17,6 +17,7 @@ grid[i][j] is either 0 or 1.
 """
 
 
+import collections
 from typing import List
 
 
@@ -49,4 +50,39 @@ class Solution:
 
 
 
+
+
+class Solution2:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
+        
+        def bfs(row, column):
+            area = 0
+
+            queue = collections.deque()
+            
+
+            queue.append((row, column))
+            grid[row][column] = 0
+            area += 1
+
+            while queue:
+                 r, c  = queue.popleft()
+                 for dRow, dColumn in [(r + 1, c), (r - 1 , c), (r, c + 1), (r, c - 1)]:
+                      if dRow >= 0 and dColumn >= 0 and dRow < len(grid) and dColumn < len(grid[0]) and grid[dRow][dColumn] == 1:
+                           queue.append((dRow, dColumn))
+                           grid[dRow][dColumn] = 0
+                           area += 1
+                           
+            return area
+
+        
+        maxIslandArea = 0
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                    if grid[row][col] == 1:
+                        maxIslandArea = max(bfs(row, col), maxIslandArea)
+        
+
+        return maxIslandArea
 
