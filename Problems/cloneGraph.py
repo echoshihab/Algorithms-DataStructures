@@ -36,6 +36,7 @@ class Node:
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 
+from collections import deque
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
@@ -61,7 +62,27 @@ class Solution:
 
         
 
+class Solution2:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        
+        queue = deque([node])
+        copyNodeMap = {node.val: Node(node.val)}
 
+        while queue:
+            current = queue.popleft()
+            curr_clone  = copyNodeMap[current.val]
+
+            for neighbor in current.neighbors:
+                if neighbor.val not in copyNodeMap:
+                    copyNodeMap[neighbor.val] = Node(neighbor.val)
+                    queue.append(neighbor)
+                curr_clone.neighbors.append(copyNodeMap[neighbor.val])
+            
+        return copyNodeMap[node.val]
+
+            
 
         
         
