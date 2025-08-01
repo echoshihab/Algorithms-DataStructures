@@ -72,3 +72,39 @@ class Solution:
 
 
 
+class Solution2:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        ROWS, COLS = len(rooms), len(rooms[0])
+
+        queue = deque()
+
+        
+        for row in range(ROWS):
+            for column in range(COLS):
+                if rooms[row][column] == 0:
+                    queue.append((row, column))
+
+
+        directions= [(1,0), (-1,0), (0, 1), (0, -1)]
+        while queue:
+            for _ in range(len(queue)):
+                row, column = queue.popleft()
+
+                for r, c in directions:
+                    nr, nc = row + r, column + c
+                    if nr < len(rooms) and nr >= 0 and  nc >= 0 and nc < len(rooms[0]) and rooms[nr][nc] == 2147483647:
+                        rooms[nr][nc] = rooms[row][column] + 1
+                        queue.append((nr,nc))
+
+
+            
+test = Solution2()
+input =  [
+  [2147483647,-1,0,2147483647],
+  [2147483647,2147483647,2147483647,-1],
+  [2147483647,-1,2147483647,-1],
+  [0,-1,2147483647,2147483647]
+]
+test.wallsAndGates(input)
+
+print(input)
