@@ -20,7 +20,7 @@ grid[i][j] is 0, 1, or 2.
 from collections import deque
 
 
-class Solution(object):
+class Solution:
     def orangesRotting(self, grid):
         ROWS, COLUMNS = len(grid), len(grid[0])
 
@@ -37,6 +37,7 @@ class Solution(object):
                     fresh_orange_count +=1
                 elif grid[row][col] == 2:
                     queue.append((row, col))
+
         directions = [(1,0), (-1, 0),(0,1), (0, -1)]
                     
         while queue and fresh_orange_count > 0:
@@ -54,3 +55,59 @@ class Solution(object):
         if fresh_orange_count > 0:
             return -1
         return time
+    
+
+
+    class Solution2:
+        def orangesRotting(self, grid):
+            if not grid:
+                return 0
+        
+            ROWS, COLUMNS = len(grid), len(grid[0])
+
+            fresh_oranges = set()
+            rotten_oranges = set()
+
+            
+            def dfs():
+                if not fresh_oranges:
+                    return 0
+                if not rotten_oranges:
+                    return -1
+                
+                rotten_oranges_new = set()
+
+                for row, col in fresh_oranges:
+                    for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        nr = row + dr
+                        nc = col + dc
+                        if nr >= 0 and nc >= 0 and nr < ROWS and nc < COLUMNS and (nr, nc) in rotten_oranges:
+                            rotten_oranges_new.add((row, col))
+
+                if not rotten_oranges_new:
+                    return - 1
+                else:
+                    for r, c in rotten_oranges_new:
+                        fresh_oranges.remove((r,c))
+                        rotten_oranges.add((r,c))
+                
+                temp = dfs()
+
+                return -1 if temp == -1 else 1 + temp
+
+            for row in range(ROWS):
+                for col in range(COLUMNS):
+                    if grid[row][col] == 1:
+                        fresh_oranges.add((row, col))
+                    elif grid[row][col] == 2:
+                        rotten_oranges.add((row, col))
+            
+            return dfs()
+
+
+
+
+
+
+
+           
