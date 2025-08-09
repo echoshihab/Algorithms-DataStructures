@@ -19,6 +19,7 @@ n == heights[r].length
 0 <= heights[r][c] <= 105
 """
 
+import collections
 from typing import List
 
 class Solution:
@@ -51,4 +52,45 @@ class Solution:
             dfs(row, COLS -1 , atlantic, heights[row][COLS - 1])
     
         return list(pacific & atlantic)
+
+
+class Solution2:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+
+            ROWS = len(heights)
+            COLS = len(heights[0])
+
+            pacific, atlantic = set(), set()
         
+            
+            for col in range(COLS):
+                pacific.add((0, col))
+                atlantic.add((ROWS - 1, col))
+
+
+            for row in range(ROWS):
+                pacific.add((row, 0))
+                atlantic.add((row, COLS -1))
+
+            
+            def bfs(starting_values, visited):
+                queue = collections.deque(starting_values)
+
+                while queue:
+                    r,c  = queue.popleft()
+                    for dr, dc in [(0,1), (0, -1), (1, 0), (-1, 0)]:
+                        nr, nc = r + dr, c + dc
+                        if nr < 0 or nr == ROWS or nc < 0 or nc == COLS or (nr, nc) in visited or heights[nr][nc] < heights[r][c]:
+                            continue
+                        visited.add((nr,nc))
+                        queue.append((nr,nc))
+                
+                return visited
+            
+
+            
+            pacific_visited = bfs(pacific, pacific)
+            atlantic_visited = bfs(atlantic, atlantic)
+        
+            return list(pacific_visited & atlantic_visited)
+            
