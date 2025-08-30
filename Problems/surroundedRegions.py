@@ -9,6 +9,7 @@ To capture a surrounded region, replace all 'O's with 'X's in-place within the o
 
 from typing import List
 
+#O(n*m) using extra space for visited
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         """
@@ -50,4 +51,40 @@ class Solution:
 
 
 
+#mark and restore
+class Solution2:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        # go through edge of the board, find all 0s
+        # when found find all connected 0s
+        # make sure that we keep track of the found 0s
 
+        ROWS, COLS = len(board), len(board[0])        
+
+        def dfs(r, c):
+            if r == ROWS or r < 0 or c < 0 or c == COLS or board[r][c] != 'O':
+                return
+
+            board[r][c] = 'T'
+            dfs(r+1, c)
+            dfs(r-1, c)
+            dfs(r, c+1)
+            dfs(r, c-1)
+        
+        for i in range(COLS):            
+            dfs(0, i) #top
+            dfs(ROWS-1, i) #bottom      
+            
+        for i in range(ROWS):            
+            dfs(i, 0) #left
+            dfs(i, COLS-1) #right
+
+        
+        for i in range(ROWS):
+            for j in range(COLS):
+                if board[i][j] == 'O':
+                    board[i][j] = 'X'
+                elif board[i][j] == 'T':
+                    board[i][j] = 'O'
