@@ -14,6 +14,7 @@ prerequisites[i].length == 2
 All the pairs prerequisites[i] are unique.
 """
 
+import collections
 from typing import List
 
 
@@ -22,14 +23,18 @@ class Solution:
         
         prerequisite_map = {i : [] for i in range(numCourses)}
 
+        # what are the prerequisites for each course
+        # course: [prerequisite1, prerequisite2 ...]
         for course, prerequisite in prerequisites:
             prerequisite_map[course].append(prerequisite)
 
         visited = set()
 
         def dfs(course):
+            # one of the prereqs have a circular dependency with a course earlier in the chain
             if course in visited:
                 return False
+            # if this course has no preqrequisite then this current course path can be finished
             if prerequisite_map[course] == []:
                 return True
             
@@ -40,6 +45,8 @@ class Solution:
                     return False
             
             visited.remove(course)
+            
+            # we know that this path can be completed so remove list of prereqs since we already traversed them
             prerequisite_map[course] = []
 
             return True
@@ -51,6 +58,41 @@ class Solution:
         
 
             
+
+class Solution2:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        prerequisite_map = {i : [] for i in range(numCourses)}
+
+
+        crs_prereq_count = [0] * numCourses
+
+        # { prerequisite: [course1, course2....]}
+        for course, prerequisite in prerequisites:
+            prerequisite_map[prerequisite].append(course)
+            crs_prereq_count[course] += 1
+
+        # add all courses with 0 prerequisites to queue
+        queue = collections.deque([i for i in range(numCourses) if crs_prereq_count[i] == 0])
+
+        can_finish = 0
+
+        while queue:
+            course = queue.popleft()
+            can_finish +=1
+
+            # loop through courses that have this course as preqrequisite and reduce the prereq count for those
+            for crs in prerequisite_map[course]:
+                crs_prereq_count[crs] -= 1
+                if crs_prereq_count[crs] == 0:
+                    queue.append(crs)
+
+        if can_finish == numCourses:
+            return True
+        return False
+            
+
+        
 
 
 
