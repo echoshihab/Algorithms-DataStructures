@@ -45,3 +45,44 @@ class Solution:
         if len(can_finish) == numCourses:
             return can_finish
         return []
+
+
+
+
+class Solution2:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+
+        prerequisites_map = {i: [] for i in range(numCourses)}
+        
+
+        for course, prerequisite in prerequisites:
+            prerequisites_map[course].append(prerequisite)
+            
+        result = []
+        state = [0] * numCourses
+
+        def dfs(course):
+            if state[course] == 1:
+                return False
+            if state[course] == 2:
+                return True 
+            
+            state[course] = 1
+
+            for prereq in prerequisites_map[course]:
+                if not dfs(prereq):
+                    return False
+
+            state[course] = 2
+            result.append(course)
+            return True
+
+
+    
+        for course in range(numCourses):
+            if state[course] == 0:
+                if not dfs(course):
+                    return []
+        
+        return result
+        
