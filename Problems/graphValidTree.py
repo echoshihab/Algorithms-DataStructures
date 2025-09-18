@@ -7,6 +7,7 @@ Note:
 You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
 """
 
+import collections
 from typing import List
 
 class Solution:
@@ -39,5 +40,31 @@ class Solution:
         return dfs(-1, 0) and len(visited) == n
 
 
-            
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if not n:
+            return True
         
+        adjacency_dict = {i: [] for i in range(n)}
+
+        for n1,n2 in edges:
+            adjacency_dict[n1].append(n2)
+            adjacency_dict[n2].append(n1)
+        
+        visited = set()
+        queue = collections.deque([(0, -1)]) # node, parent
+
+        while queue:
+            node, prevNode = queue.popleft()
+
+            if node in visited:
+                return False
+
+            visited.add(node)
+
+            for item in adjacency_dict[node]:
+                if item == prevNode:
+                    continue
+                queue.append((item, node))
+            
+        return len(visited) == n
