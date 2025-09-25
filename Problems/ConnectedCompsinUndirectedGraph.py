@@ -13,6 +13,7 @@ Constraints:
 
 """
 
+import collections
 from typing import List
 
 class Solution:
@@ -54,3 +55,42 @@ class Solution:
 
 test = Solution()
 print(test.countComponents(6, edges=[[0,1], [1,2], [2,3], [4,5]]))
+
+
+
+class Solution2:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+
+        if len(edges) == 0 or n == 1:
+            return n
+        
+    
+        adjecency_list = {i: [] for i in range(n)}
+
+        for n1,n2 in edges:
+            adjecency_list[n1].append(n2)
+            adjecency_list[n2].append(n1)
+
+
+        connections = [0]
+        visited = set()
+        queue = collections.deque()
+
+        for i in range(n):
+            if i not in visited:
+                queue.append(i)
+                while queue:
+                    node = queue.popleft()
+                    for an in adjecency_list[node]:
+                        if an not in visited:
+                            visited.add(an)
+                            queue.append(an)
+                connections[0] +=1            
+
+        
+        return connections[0]
+
+
+
+test2 = Solution2()
+print(test2.countComponents(6, edges=[[0,1], [1,2], [2,3], [4,5]]))
