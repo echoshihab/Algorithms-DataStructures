@@ -40,5 +40,37 @@ class Solution:
             root[root2] = root1 
     
 
+    
+
 test = Solution()
 test.findRedundantConnection([[1,2],[1,3],[2,3]])
+
+
+class Solution2:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        adjacency_map = {i:[] for i in range(len(edges) + 1)}
+
+        def cycle_exists(edge1,edge2):
+            if edge1 == edge2:
+                return True
+
+            visited.add(edge1)
+
+            for n in adjacency_map[edge1]:
+                if n not in visited:
+                    if cycle_exists(n, edge2):
+                        return True
+        
+            return False
+        
+
+        for e1,e2 in edges:
+            visited = set()
+            
+            if cycle_exists(e1,e2):
+                return [e1,e2]
+            else:
+                adjacency_map[e1].append(e2)
+                adjacency_map[e2].append(e1)
+
+
