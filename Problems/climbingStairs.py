@@ -48,3 +48,15 @@ class Solution:
         dfs(2)
 
         return distinct_ways[0]
+
+
+class Solution:
+    def climbStairs2(self, n: int) -> int:
+        prev, curr = 1, 1
+
+        for _ in range(n-1):
+            temp = curr
+            curr = curr + prev
+            prev = temp
+
+        return curr
