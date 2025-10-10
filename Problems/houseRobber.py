@@ -43,6 +43,21 @@ class Solution:
         return result[0]
 
 
+# optimized dynamic programming solution            
+class Solution2:
+    def rob(self, nums: List[int]) -> int:
+        h1, h2 = 0,0
+
+        for n in nums:                    
+            temp = max(h1+n, h2)
+            h1 = h2
+            h2 = temp
+        
+        return h2
+    
+
+
+                       
 
 
             
