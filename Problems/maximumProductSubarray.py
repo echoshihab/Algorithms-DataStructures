@@ -15,19 +15,17 @@ class Solution:
         if len(nums) == 1:
             return nums[0]
         
-        product = float('-inf')
+        result = nums[0]
+        curr_max = curr_min = 1
 
-        curr_product = nums[0]
-
-        for i in range(1, len(nums)):
-            temp = nums[i] * curr_product
-            if temp < curr_product or temp < nums[i]:                
-                curr_product = nums[i]
-            else:
-                curr_product = temp
-
-            product = max(product, curr_product)
+        for n in nums:
+            vals = (n,  n * curr_max, n * curr_min)
+            curr_max, curr_min = max(vals), min(vals)
+            result = max(result, curr_max)
         
+        return result
         
 
-        return product
+
+sol = Solution()
+sol.maxProduct([2,3,-2,4])
