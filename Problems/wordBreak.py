@@ -33,3 +33,21 @@ class Solution:
     
       return dp[0]
 
+
+# top down approach
+
+class Solution2:
+    def wordBreak(self, s, wordDict):
+      s_length = len(s)
+
+      dp = [False] * (s_length+1)
+      dp[0] = True
+
+      for i in range(len(s)):
+        for word in wordDict:
+            word_length = len(word)
+            if i+1 - word_length >= 0 and word == s[i + 1 - word_length: i + 1 ]:
+                dp[i + 1] = dp[i+1 - word_length]
+                if dp[i +1]:
+                    break
+      return dp[s_length]
