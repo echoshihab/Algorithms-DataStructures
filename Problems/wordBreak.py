@@ -15,19 +15,21 @@ All the strings of wordDict are unique.
 
 from typing import List
 
+# bottoms up approach
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+    def wordBreak(self, s, wordDict):
+      s_length = len(s)
+      dp = [False] * (s_length + 1)
+      dp[s_length] =  True
 
-        dp = [False] * (len(s) + 1) 
-        dp [len(s)] = True # base case
-            
-        #bottoms up approach    
-        for i in range(len(s) -1, -1, -1):
-            for word in wordDict:
+      for i in range(len(s) - 1, -1, -1):
+        for word in wordDict:
+            word_length = len(word)
 
-                if (i + len(word)) <= len(s) and s[i : i+len(word)] == word:
-                    dp[i] = dp[i + len(word)]
+            if i + word_length <= s_length and word == s[i: i + word_length]:
+                dp[i] = dp[i + word_length]
                 if dp[i]:
                     break
-        return dp[0]
+    
+      return dp[0]
 
