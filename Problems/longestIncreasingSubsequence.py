@@ -6,6 +6,7 @@ Constraints:
 -104 <= nums[i] <= 104
 """
 
+import bisect
 from typing import List
 
 
@@ -41,4 +42,16 @@ class Solution:
 
         return dfs(0, -1)
 
-        
+
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        res = []
+
+        for num in nums:
+            if not res or num > res[-1]:
+                res.append(num)
+            else:
+                idx = bisect.bisect_left(res,num)
+                res[idx] = num
+
+        return len(res)
