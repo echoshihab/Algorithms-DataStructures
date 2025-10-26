@@ -55,3 +55,32 @@ class Solution2:
                 res[idx] = num
 
         return len(res)
+
+
+
+
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        result = []
+
+        for n in nums:
+            if not result or n > result[-1]:
+                result.append(n)
+            else:
+                index = self.binarySearchLeft(result, n)
+                result[index] = n
+            
+        return len(result)
+
+    def binarySearchLeft(self, result, num):
+        left, right = 0, len(result) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if result[mid] < num:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return left
+                        
+            
