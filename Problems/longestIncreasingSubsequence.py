@@ -80,7 +80,21 @@ class Solution2:
             if result[mid] < num:
                 left = mid + 1
             else:
-                right = mid - 1
+                right = mid - 1 
         return left
                         
-            
+
+class Solution3:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        result_dict = [1] * len(nums)
+
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] > nums[j]:
+                    continue
+                nums[i] = max(nums[i], 1 + nums[j])
+        
+        return max(result_dict)
+                
+                
+        
